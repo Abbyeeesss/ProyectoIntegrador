@@ -8,7 +8,7 @@ public class Prestamo {
     private Libro libro;
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucion;
-
+ //Inicializa un objeto Prestamo con el estudiante y el libro proporcionados
     public Prestamo(Estudiante estudiante, Libro libro) {
         this.estudiante = estudiante;
         this.libro = libro;

@@ -7,11 +7,12 @@ public class Estudiante {
     private String codigo;
     private ArrayList<Libro> librosPrestados;
 
+    //Inicializa un objeto Estudiante con los valores proporcionados
     public Estudiante(String nombre, String apellido, String codigo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.codigo = codigo;
-        this.librosPrestados = new ArrayList<>();
+        this.librosPrestados = new ArrayList<>();//inicializa la lista librosPrestados como una nueva instancia de ArrayList.
     }
 
     // Getters y setters
@@ -40,7 +41,7 @@ public class Estudiante {
     }
 
     @Override
-    public String toString() {
+    public String toString() { //Devuelve una representación en cadena de texto
         StringBuilder librosPrestadosStr = new StringBuilder();
         for (Libro libro : librosPrestados) {
             librosPrestadosStr.append("\n").append(libro.getTitulo());

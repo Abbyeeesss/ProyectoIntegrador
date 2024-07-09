@@ -7,6 +7,7 @@ public class Libro {
     private String isbn;
     private String estado; // Disponible o Prestado
 
+    //Inicializa un objeto Libro con los valores proporcionados para cada atributo.
     public Libro(String titulo, String autor, String edicion, int anoPublicacion, String isbn, String estado) {
         this.titulo = titulo;
         this.autor = autor;
