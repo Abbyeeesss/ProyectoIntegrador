@@ -6,17 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+    // las estructuras Map y ArrayList se utilizan para almacenar y gestionar información sobre libros, estudiantes y préstamos en el sistema
     private static Map<String, Libro> libros = new HashMap<>();
     private static Map<String, Estudiante> estudiantes = new HashMap<>();
     private static ArrayList<Prestamo> prestamos = new ArrayList<>();
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Sistema de Gestión de Biblioteca");
+        SwingUtilities.invokeLater(() -> { // asegura que la creación y actualización de la GUI se realicen en el hilo de eventos de Swing
+            JFrame frame = new JFrame("Sistema de Gestión de Biblioteca"); //Crea una nueva ventana
             frame.setSize(600, 400);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// Configura la ventana para que la aplicación se cierre
 
-            JPanel panel = new JPanel();
+            JPanel panel = new JPanel();//Crea un nuevo panel
             panel.setBorder(new EmptyBorder(10, 10, 10, 10));
             panel.setLayout(new GridLayout(0, 1));
 
@@ -50,7 +51,7 @@ public class Main {
             panel.add(salirButton);
 
             frame.add(panel);
-            frame.setVisible(true);
+            frame.setVisible(true);//Hace visible la ventana, mostrando la GUI al usuario.
         });
 
         cargarDatosEjemplo();
@@ -59,15 +60,15 @@ public class Main {
     private static void mostrarInformacionEstudiante() {
         String codigo = JOptionPane.showInputDialog("Ingrese el código del estudiante:");
         Estudiante estudiante = estudiantes.get(codigo);
-        if (estudiante != null) {
-            StringBuilder info = new StringBuilder();
+        if (estudiante != null) { //Verifica si el estudiante fue encontrado en el Map.
+            StringBuilder info = new StringBuilder();//construir la cadena de texto que contendrá la información del estudiante.
             info.append("Información del estudiante:\n");
             info.append("Nombre: ").append(estudiante.getNombre()).append("\n");
             info.append("Apellido: ").append(estudiante.getApellido()).append("\n");
             info.append("Código: ").append(estudiante.getCodigo()).append("\n");
             info.append("Libros prestados:\n");
             for (Libro libro : estudiante.getLibrosPrestados()) {
-                info.append("\t").append(libro.getTitulo()).append(" - Estado: ").append(libro.getEstado()).append("\n");
+                info.append("\t").append(libro.getTitulo()).append(" - Estado: ").append(libro.getEstado()).append("\n");//Añade diferentes piezas de información
             }
             JOptionPane.showMessageDialog(null, info.toString(), "Información del Estudiante", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -101,19 +102,19 @@ public class Main {
     private static void registrarPrestamo() {
         String codigoEstudiante = JOptionPane.showInputDialog("Ingrese el código del estudiante:");
         Estudiante estudiante = estudiantes.get(codigoEstudiante);
-        if (estudiante == null) {
-            JOptionPane.showMessageDialog(null, "Estudiante no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        if (estudiante == null) { //Verifica si el estudiante no fue encontrado en el Map.
+            JOptionPane.showMessageDialog(null, "Estudiante no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);//solicita al usuario que ingrese el código del estudiante
+            return;//Sale del método si el estudiante no es encontrado.
         }
 
-        String isbnLibro = JOptionPane.showInputDialog("Ingrese el ISBN del libro:");
-        Libro libro = libros.get(isbnLibro);
-        if (libro == null) {
+        String isbnLibro = JOptionPane.showInputDialog("Ingrese el ISBN del libro:");//solicita al usuario que ingrese el ISBN del libro
+        Libro libro = libros.get(isbnLibro);//Busca el objeto Libro en el Map de libros usando el ISBN ingresado como clave
+        if (libro == null) {//Si el libro no existe, libro será null.
             JOptionPane.showMessageDialog(null, "Libro no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (!libro.getEstado().equals("Disponible")) {
+        if (!libro.getEstado().equals("Disponible")) {//Verifica si el estado del libro no es "Disponible".
             JOptionPane.showMessageDialog(null, "El libro no está disponible para préstamo.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -128,9 +129,9 @@ public class Main {
     }
 
     private static void registrarDevolucion() {
-        String isbnLibro = JOptionPane.showInputDialog("Ingrese el ISBN del libro que se devuelve:");
+        String isbnLibro = JOptionPane.showInputDialog("Ingrese el ISBN del libro que se devuelve:");//Muestra una ventana de diálogo
         Libro libro = libros.get(isbnLibro);
-        if (libro == null) {
+        if (libro == null) {//Verifica si el libro no fue encontrado en el Map
             JOptionPane.showMessageDialog(null, "Libro no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -153,7 +154,7 @@ public class Main {
     }
 
     private static void cargarDatosEjemplo() {
-        // Cargar algunos datos de ejemplo para probar la interfaz
+        // Cargar datos
         Libro libro1 = new Libro("Principito", "Antoine", "1st Edition", 2020, "12345", "Disponible");
         Libro libro2 = new Libro("Carrie", "King", "2nd Edition", 2019, "54321", "Disponible");
         libros.put(libro1.getIsbn(), libro1);
